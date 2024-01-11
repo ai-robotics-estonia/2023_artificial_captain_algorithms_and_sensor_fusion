@@ -1,0 +1,11 @@
+<!-- MC6001 main launch file -->
+
+<launch>
+
+  <!-- PTZ Camera -->
+  <include file="$(find-pkg-share asv_main)/launch/mc6001/camera.launch.xml" /> 
+
+  <!-- Computer vision -->
+  <include file="$(find-pkg-share asv_main)/launch/mc6001/computer_vision.launch.xml" /> 
+
+</launch>

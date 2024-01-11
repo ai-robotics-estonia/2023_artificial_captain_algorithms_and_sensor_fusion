@@ -1,0 +1,79 @@
+<launch>
+
+  <!-- Camera connection parameters -->
+  <arg name="user" default="admin" />
+  <arg name="passwd" default="admin" />
+  <arg name="ip_address" default="127.0.0.1" />
+  <arg name="port" default="554" />
+
+  <node name="ptz_drv" 
+        pkg="gst_image_drvr" 
+        exec="gst_image_drvr_node" 
+        namespace="/kuppel"
+        respawn="true"
+        respawn_delay="4" >
+
+    <!-- Debugging -->
+    <param name="debug" value="false" />
+
+    <!-- Stability -->
+    <param name="no_frame_timeout_sec" value="15.0" />
+
+    <!-- Gstreamer pipeline -->
+    <param name="pipeline" value="rtspsrc location=rtsp://$(var user):$(var passwd)@$(var ip_address):$(var port)/ 
+                                              drop-on-latency=true use-pipeline-clock=true do-retransmission=false 
+                                              latency=0 protocols=GST_RTSP_LOWER_TRANS_UDP ! 
+                                      queue ! 
+                                      rtpjitterbuffer latency=0 !
+                                      rtph264depay ! 
+                                      h264parse ! 
+                                      nvv4l2decoder ! 
+                                      nvvidconv ! 
+                                      video/x-raw,format=(string)BGRx ! 
+                                      videoconvert ! video/x-raw, format=BGR ! "/>  
+
+    <!-- Output QoS parameters -->
+    <param name="pub_buffer_depth" value="1" />
+    <param name="pub_lease_duration" value="1" />
+    <param name="pub_unreliable" value="false" />
+
+    <!-- Input image configuration -->
+    <param name="width" value="1920" />
+    <param name="height" value="1080" />
+    <param name="fps" value="2" />
+
+    <param name="rate" value="1.0" />
+
+    <!-- QoS parameters for the output image topic -->
+    <param name="buffer_depth" value="1" />
+    <param name="lease_duration" value="1" />
+    <param name="pub_unreliable" value="false" />
+
+    <!-- Publishing configuration -->
+    <param name="frame_id" value="camera" />
+
+    <param name="publish_image_raw" value="false" />
+    <param name="publish_compressed" value="true" />
+    <param name="publish_scaled_image_raw" value="false" />
+    <param name="publish_scaled_compressed" value="true" />
+
+    <param name="scaled_width" value="384" />
+    <param name="scaled_height" value="216" />
+
+    <param name="compression_quality" value="65" />
+
+    <!-- Timestamp position for scaled image -->
+    <param name="scaled_time_x" value="5" />
+    <param name="scaled_time_y" value="18" />
+    <param name="scaled_time_font_size" value="0.45" />
+    <param name="scaled_time_font_thickness" value="1" />
+
+    <!-- Camera frame configuration -->
+    <param name="add_timestamp" value="true" />
+    <!-- <param name="frame_id" value="oak_$(var prefix)" />
+    <param name="camera_info" value="$(find-pkg-share asv_pi_mc6000)/config/camera/$(var prefix).yaml" /> -->
+
+
+  </node>
+
+</launch>

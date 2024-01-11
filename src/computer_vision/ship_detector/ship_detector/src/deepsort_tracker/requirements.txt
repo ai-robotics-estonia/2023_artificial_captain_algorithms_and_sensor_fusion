@@ -1,0 +1,14 @@
+opencv_python
+matplotlib
+scipy
+# tensorflow_gpu==1.15.4
+nvidia-tensorflow[horovod]
+nvidia-tensorboard==1.15
+torchvision==0.2.2
+# torch==1.0.1.post2
+torch==1.4.0
+imgaug
+numpy
+Pillow==6.2.2
+nonechucks
+scikit_learn

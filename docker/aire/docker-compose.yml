@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  asv_ros:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    env_file:
+      - env
+    environment:
+      - INTERACTIVE=${INTERACTIVE}
+    volumes:
+      - .:/asv-ros
+      - ./ml_models:/ml_models
+      - .bash_history:/home/aju/.bash_history
+    command: ["bash", "-c", "/asv-ros/scripts/entrypoint.sh"]
+    restart: unless-stopped
+    network_mode: host

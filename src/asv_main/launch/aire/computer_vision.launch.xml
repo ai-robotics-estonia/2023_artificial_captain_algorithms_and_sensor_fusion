@@ -1,0 +1,74 @@
+<launch>
+    <!-- Launch the yolo_detection node -->
+    <node name="yolo_detection_node" 
+          pkg="ship_detector" 
+          exec="yolo_detection" 
+          output="screen"
+          respawn="true"
+          respawn_delay="4" >
+
+        <!-- Debugging options -->
+        <param name="debug" value="False"/>
+
+        <!-- Publishing options -->
+        <param name="rate" value="2.0"/>
+        <param name="publish_raw_img" value="False"/>
+        <param name="publish_compressed" value="True"/>
+        <param name="publish_scaled" value="False"/>
+        <param name="publish_scaled_compressed" value="True"/>
+        <param name="scaled_width" value="384" />
+        <param name="scaled_height" value="216" />
+        <param name="compression_quality" value="75" />
+
+        <param name="frame_id_prefix" value="detection_" />
+
+        <!-- Stablility -->
+        <param name="no_frame_timeout_sec" value="5.0"/>
+
+        <!-- YOLO config -->
+        <param name="yolo_model" value="/ml_models/yolo/v5m6_best.pt"/>
+        <param name="input_size" value="1280"/>
+        <param name="confidence_threshold" value="0.5"/>
+        <param name="iou_threshold" value="0.5"/>
+        
+        <!-- Tracker config -->
+        <param name="enable_tracker" value="False"/>
+        <param name="tracker_type" value="bytetrack"/>
+        
+        <!-- Bearing calculation config -->
+        <param name="enable_bearing" value="False"/>
+        
+        <!-- QoS settings -->
+        <param name="sub_buffer_depth" value="1"/>
+        <param name="sub_lease_duration" value="1"/>
+        <param name="sub_unreliable" value="True"/>
+        
+        <param name="img_pub_buffer_depth" value="1"/>
+        <param name="img_pub_lease_duration" value="1"/>
+        <param name="img_pub_unreliable" value="False"/>
+        
+        <param name="bbox_pub_buffer_depth" value="1"/>
+        <param name="bbox_pub_lease_duration" value="1"/>
+        <param name="bbox_pub_unreliable" value="False"/>
+        
+        <!-- Output config -->
+        <param name="enable_bounding_boxes" value="True"/>
+        <param name="bbox_topic" value="bounding_boxes"/>
+        
+        <!-- Timestamp position for scaled image -->
+        <param name="scaled_time_x" value="5" />
+        <param name="scaled_time_y" value="18" />
+        <param name="scaled_time_font_size" value="0.45" />
+        <param name="scaled_time_font_thickness" value="1" />
+
+        <!-- Camera frame configuration -->
+        <param name="add_timestamp" value="True" />
+
+        <!-- Camera config -->
+        <param name="num_cams" value="4"/>
+        <param name="cam_0_topic" value="/frontpi/oak/rgb/image_raw/compressed" />
+        <param name="cam_1_topic" value="/pspi/oak/rgb/image_raw/compressed" />
+        <param name="cam_2_topic" value="/aftpi/oak/rgb/image_raw/compressed" />
+        <param name="cam_3_topic" value="/sbpi/oak/rgb/image_raw/compressed" />
+    </node>
+</launch>

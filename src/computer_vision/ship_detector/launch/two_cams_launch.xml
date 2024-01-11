@@ -1,0 +1,11 @@
+<launch>
+  <group>
+    <push-ros-namespace namespace="pspi"/>
+    <include file="$(find-pkg-share ship_detector)/detector_launch.xml"/>
+  </group>
+
+  <!-- <group>
+    <push-ros-namespace namespace="sbpi"/>
+    <include file="$(find-pkg-share ship_detector)/detector_launch.xml"/>
+  </group> -->
+</launch>

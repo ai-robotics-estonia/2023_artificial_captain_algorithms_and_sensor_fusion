@@ -1,0 +1,19 @@
+# NVIDIA Container Runtime Environment Variables
+# Do not change unless you know what you are doing
+NVIDIA_VISIBLE_DEVICES=all
+NVIDIA_DRIVER_CAPABILITIES=all
+
+# Set the default locale
+LANG=C.UTF-8
+
+# Enable color prompt in the shell
+TERM=xterm-256color
+force_color_prompt=yes
+PS1='(asv-ros)\[\033[01;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# ROS2 specific environment variables
+# Edit these to match your setup
+ROS_DOMAIN_ID=42
+
+# Set the launch file to be executed by the entrypoint
+ASV_LAUNCH_FILE=/asv-ros/src/asv_main/launch/mc6001_main.launch.xml

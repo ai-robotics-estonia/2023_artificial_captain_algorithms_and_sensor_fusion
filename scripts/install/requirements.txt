@@ -1,0 +1,14 @@
+setuptools
+wheel
+numpy==1.24.4
+opencv-python==4.8.0.76
+PyTurboJPEG==1.7.2
+paho-mqtt==1.6.1
+pandas==2.0.3
+scikit-learn==1.3.1
+bitstring
+ultralytics==8.0.185
+lapx>=0.5.2
+google
+protobuf
+google-api-python-client

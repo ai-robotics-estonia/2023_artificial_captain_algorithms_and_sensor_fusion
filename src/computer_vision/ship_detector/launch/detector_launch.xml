@@ -1,0 +1,29 @@
+<launch>
+  <arg name="input_size" default="1280" />
+  <arg name="confidence_threshold" default="0.3" />
+  <arg name="iou_threshold" default="0.3" />
+  <arg name="tracker" default="bytetrack.yaml" />
+  <!-- <arg name="yolo_model" default="/media/agx/yolo_weights/rt_models/fp16/640/yolov8n.engine" /> -->
+  <!-- <arg name="yolo_model" default="/home/can/storage/weight_files/aire/1280/yolov8x6.engine" /> -->
+  <arg name="yolo_model" default="/home/can/storage/weight_files/aire/custom/weights/v8m.pt" />
+  <arg name="cams" default="['frontpi','sbpi','aftpi','pspi']" />
+  <arg name="raw_img_publish" default="True" />
+  <arg name="compressed_img_publish" default="False" />
+  <arg name="publish_scaled" default="False" />
+  <arg name="scale_size" default="[320,240]" />
+
+
+
+  <node pkg="ship_detector" name="yolo_detector" exec="yolo_detection" output="screen">
+    <param name="cams" value="$(var cams)" />
+    <param name="input_size" value="$(var input_size)"/>
+    <param name="confidence_threshold" value="$(var confidence_threshold)"/>
+    <param name="iou_threshold" value="$(var iou_threshold)"/>
+    <param name="tracker" value="$(var tracker)"/>
+    <param name="yolo_model" value="$(var yolo_model)"/>
+    <param name="raw_img_publish" value="$(var raw_img_publish)" />
+    <param name="compressed_img_publish" value="$(var compressed_img_publish)" />
+    <param name="publish_scaled" value="$(var publish_scaled)" />
+    <param name="scale_size" value="$(var scale_size)" />
+  </node>
+</launch>
